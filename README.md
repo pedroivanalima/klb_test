@@ -1,17 +1,25 @@
 # klb_test
 
-Things I would clean up with BA or team:
+To run it 
+    ruby klb_test.rb
+    or
+    ruby klb_test.rb DEATHLOG
+
+There must be a entry.log on the root as well.
+
+Things I would clean up with BA or team and decisions I've made:
+
 1)  There are 21 'InitGame' entries and 20 'ShutdownGame' entries.  
     The matching shutdown game would be on line 97 but that seems cut.  That line starts with 26 and is followed by MM:SS -------... 
     I would expect it to be something like:
-        26:10 ShutdownGame:
-        26:10 ------------------------------------------------------------
-        0:00 ------------------------------------------------------------
-        init game
+    26:10 ShutdownGame:
+    26:10 ------------------------------------------------------------
+    0:00 ------------------------------------------------------------
+    init game
 
-        instead of
-        26  0:00 ------------------------------------------------------------
-        0:00 InitGame:
+    instead of
+    26  0:00 ------------------------------------------------------------
+    0:00 InitGame:
   The missing ShutdownGame + -------- could indicate a corrupted log, server failure, well... that's relevant to at least be brought on the daily.
 
   It seems that we always have at least the initial ---------------- and InitGame following.  I prefered to stop on ------------ because it happens first and also InitGame has information, if we need to parse InitGame info, having stoped before reading InitGame allow us to keep InitGame inside the next match read without any further manipulation.
@@ -28,13 +36,12 @@ Things I would clean up with BA or team:
 
 6) I understand that we're always returning the score of the players, and when asked on the PLUS section, we add the kills_by_means log.
 
-7) I would like to address the quote about truth only being on the code.  That's not entirely true. 
+7) I decided to keep the structure as simple as possible (even using plain ruby) while addressing and discussing some of the concerns that I had.  
+As the classes are small, I thought that fitting on only one file would be easier to read and to write.
+Each class could be a file and the code outside classes a lib that would be called by a rake task, or even a controller inside admin.  This would be more natural.
+
+8) I would like to address the quote about truth only being on the code.  That's not entirely true. 
  Often there are many interactions outside the code that come from database triggers, reroutings, external sources, other codebases and even people with practices.  
  Idealy would be all on documentation, but well, it is a sum of all.  Now, in defense of Robert, I try to document these things on code because it is the main source of truth... 
  But as the brazilian comic artist Andre Dahmer once wrote "If truth were an object it would be modeling clay".
 
-Decisions
-
-I decided to keep the structure as simple as possible while addressing and discussing some of the concerns that I had.
-As the classes are small, I thought that fitting on only one file would be easier to read and to write.
-Each class could be a file and the code outside classes a lib that would be called by a rake task, or even a controller inside admin.
