@@ -1,9 +1,9 @@
 # klb_test
 
 To run it 
-    ruby klb_test.rb
-    or
-    ruby klb_test.rb DEATHLOG
+ruby klb_test.rb
+or
+ruby klb_test.rb DEATHLOG
 
 There must be a entry.log on the root as well.
 
