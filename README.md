@@ -1,6 +1,6 @@
 # klb_test
 
-To run it 
+To run it :
 ruby klb_test.rb
 or
 ruby klb_test.rb DEATHLOG
